@@ -147,23 +147,11 @@
 		CEF4635824AE96B1004DABCE /* TimersTimersTimers WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
-				CEF4637B24AE9787004DABCE /* AlarmManager.swift */,
-				CEF4637D24AE9788004DABCE /* ATimer.swift */,
-				CEF4637C24AE9788004DABCE /* Color.swift */,
-				CEF4638424AE9788004DABCE /* CountdownDisplay.swift */,
-				CEF4638024AE9788004DABCE /* CreateTimer.swift */,
-				CEF4637E24AE9788004DABCE /* HStack40View.swift */,
-				CEF4637824AE9787004DABCE /* HStack44View.swift */,
-				CEF4638224AE9788004DABCE /* Notification-Name.swift */,
+				CEF4639524AE9E43004DABCE /* Views */,
+				CEF4639424AE9E15004DABCE /* Model */,
+				CEF4639324AE9DF7004DABCE /* Extensions */,
+				CEF4639224AE9DE3004DABCE /* Utilities */,
 				CEF4637924AE9787004DABCE /* Preview Content */,
-				CEF4637F24AE9788004DABCE /* TimerList.swift */,
-				CEF4638124AE9788004DABCE /* TimerPersistence.swift */,
-				CEF4637724AE9787004DABCE /* Timers.swift */,
-				CEF4638324AE9788004DABCE /* TimerStruct.swift */,
-				CEF4635B24AE96B1004DABCE /* HostingController.swift */,
-				CEF4635D24AE96B1004DABCE /* ExtensionDelegate.swift */,
-				CEF4635F24AE96B1004DABCE /* NotificationController.swift */,
-				CEF4636124AE96B1004DABCE /* NotificationView.swift */,
 				CEF4636324AE96B2004DABCE /* Assets.xcassets */,
 				CEF4636824AE96B2004DABCE /* Info.plist */,
 				CEF4636924AE96B2004DABCE /* PushNotificationPayload.apns */,
@@ -187,6 +175,58 @@
 			);
 			name = "Preview Content";
 			path = "../../Timers/Timers WatchKit Extension/Preview Content";
+			sourceTree = "<group>";
+		};
+		CEF4639224AE9DE3004DABCE /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				CEF4637B24AE9787004DABCE /* AlarmManager.swift */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		CEF4639324AE9DF7004DABCE /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CEF4637C24AE9788004DABCE /* Color.swift */,
+				CEF4638224AE9788004DABCE /* Notification-Name.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		CEF4639424AE9E15004DABCE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CEF4637724AE9787004DABCE /* Timers.swift */,
+				CEF4637D24AE9788004DABCE /* ATimer.swift */,
+				CEF4638324AE9788004DABCE /* TimerStruct.swift */,
+				CEF4638124AE9788004DABCE /* TimerPersistence.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		CEF4639524AE9E43004DABCE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CEF4639624AE9E65004DABCE /* Containers */,
+				CEF4635B24AE96B1004DABCE /* HostingController.swift */,
+				CEF4635D24AE96B1004DABCE /* ExtensionDelegate.swift */,
+				CEF4635F24AE96B1004DABCE /* NotificationController.swift */,
+				CEF4636124AE96B1004DABCE /* NotificationView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		CEF4639624AE9E65004DABCE /* Containers */ = {
+			isa = PBXGroup;
+			children = (
+				CEF4637F24AE9788004DABCE /* TimerList.swift */,
+				CEF4638424AE9788004DABCE /* CountdownDisplay.swift */,
+				CEF4638024AE9788004DABCE /* CreateTimer.swift */,
+				CEF4637E24AE9788004DABCE /* HStack40View.swift */,
+				CEF4637824AE9787004DABCE /* HStack44View.swift */,
+			);
+			name = Containers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
