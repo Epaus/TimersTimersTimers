@@ -1,21 +1,26 @@
 //
 //  ExtensionDelegate.swift
-//  TimersTimersTimers WatchKit Extension
+//  Timers WatchKit Extension
 //
-//  Created by Estelle Paus on 7/2/20.
-//  Copyright © 2020 Paus Productions. All rights reserved.
+//  Created by Estelle Paus on 11/12/19.
+//  Copyright © 2019 Paus Productions. All rights reserved.
 //
 
 import WatchKit
+import UserNotifications
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
-
+    var alarmManager = AlarmManager.shared
     func applicationDidFinishLaunching() {
-        // Perform any final initialization of your application.
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound], completionHandler: { granted, error in
+            
+        })
     }
 
     func applicationDidBecomeActive() {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        if alarmManager.hapticRunning == true {
+            alarmManager.stopHaptic()
+        }
     }
 
     func applicationWillResignActive() {

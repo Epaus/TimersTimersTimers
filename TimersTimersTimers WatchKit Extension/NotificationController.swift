@@ -1,9 +1,9 @@
 //
 //  NotificationController.swift
-//  TimersTimersTimers WatchKit Extension
+//  Timers WatchKit Extension
 //
-//  Created by Estelle Paus on 7/2/20.
-//  Copyright © 2020 Paus Productions. All rights reserved.
+//  Created by Estelle Paus on 11/12/19.
+//  Copyright © 2019 Paus Productions. All rights reserved.
 //
 
 import WatchKit
@@ -11,10 +11,19 @@ import SwiftUI
 import UserNotifications
 
 class NotificationController: WKUserNotificationHostingController<NotificationView> {
-
-    override var body: NotificationView {
-        return NotificationView()
+     @ObservedObject var model : ATimer
+   
+    var title: String?
+    var message: String?
+    
+    init(model: ATimer) {
+        self.model = model
+        
     }
+    
+     override var body: NotificationView {
+        NotificationView(title: model.title, message: "Timer Done")
+       }
 
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
@@ -25,10 +34,18 @@ class NotificationController: WKUserNotificationHostingController<NotificationVi
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
     }
+    
 
     override func didReceive(_ notification: UNNotification) {
-        // This method is called when a notification needs to be presented.
-        // Implement it if you use a dynamic notification interface.
-        // Populate your dynamic notification interface as quickly as possible.
+        let notificationData =
+            notification.request.content.userInfo as? [String: Any]
+        
+        let aps = notificationData?["aps"] as? [String: Any]
+        let alert = aps?["alert"] as? [String: Any]
+        
+        title = alert?["title"] as? String
+        message = alert?["body"] as? String
     }
+    
+   
 }
