@@ -31,8 +31,8 @@ class Timers: ObservableObject {
         var temp = self.timers
         temp.append(model)
         self.timers = temp
-        print("timers.count = ", timers.count)
         updateList()
+        self.objectWillChange.send()
     }
     
     func updateList() {

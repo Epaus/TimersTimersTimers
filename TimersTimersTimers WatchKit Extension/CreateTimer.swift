@@ -60,7 +60,6 @@ struct CreateTimer: View {
             HStack {
                 Spacer()
                  Button(action: {
-                    print("Floating Button Click")
                      self.presentation.wrappedValue.dismiss()
                 }, label: {
                     Button(action: {
@@ -70,6 +69,7 @@ struct CreateTimer: View {
                         self.second = self.selectedSecond
                         if self.hour > 0 || self.minute > 0 || self.second > 0 {
                             let newModel = ATimer(hours: self.hour, minutes: self.minute, seconds: self.second, title: self.title)
+                            newModel.timerRunning = true
                             self.timers.addModel(model: newModel)
                             newModel.start()
                         }
@@ -83,7 +83,6 @@ struct CreateTimer: View {
                 })
                 
                 Button(action: {
-                    print("Cancel button tapped")
                     self.presentation.wrappedValue.dismiss()
                 }) {
                     ButtonView(title: "Cancel")

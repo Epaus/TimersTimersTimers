@@ -20,7 +20,7 @@ struct HStack44View: View {
                 
             } .onTapGesture {
                 if (self.model.timerRunning == true) {
-                    self.model.cancelNotification()
+                    self.model.cancelRun()
                 } else {
                     self.model.alarmManager.stopHaptic()
                 }

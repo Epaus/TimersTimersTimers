@@ -12,8 +12,6 @@ struct TimerList: View {
     @EnvironmentObject var timers: Timers
     @State var currentIndex = 0.0
     @State var items = [ATimer]()
-    //@ObservedObject var alarmManager = AlarmManager.shared
-    
     
     
     var body: some View {
@@ -27,7 +25,7 @@ struct TimerList: View {
                                }
                     ForEach(items) { timer in
                     
-                   
+
                         CountdownDisplay(model: timer)
                         
                         .onTapGesture(perform: {
@@ -42,9 +40,7 @@ struct TimerList: View {
                 .onReceive(timers.objectWillChange, perform: { _ in
                     self.reload()
                 })
-//                .onReceive(alarmManager.objectWillChange, perform: { _ in
-//                    print("alarmManger.hapticRunning = ",self.alarmManager.hapticRunning)
-//                })  leaving this commented out to have a record of it. Will delete later after it's comitted.
+
                 .onAppear(perform: {
                     self.reload()
                 })
@@ -58,26 +54,28 @@ struct TimerList: View {
         guard let index = Array(offsets).first else { return }
         timers.timers.sort(by: { $0.lastDateUsed > $1.lastDateUsed })
         timers.removeModel(index: index)
-        timers.updateList()
         self.reload()
     }
     
     private func reload() {
         
         self.items = timers.timers.map({ ($0) })
-        //self.goToIndex(index: timers.timers.count - 1)
-        self.items.sort(by: { $0.timeLeft < $1.timeLeft && $0.timerRunning == true })
+        
+       self.items.sort(by: { $0.timeLeft < $1.timeLeft && $0.timerRunning == true })
         for timer in items {
             if timer.timerRunning == true {
                 _ = CountdownDisplay(model: timer)
             }
         }
+        let timer = items[0]
+        print(timer.timeLeft)
+        _ = CountdownDisplay(model: timer)
     }
     
     func goToIndex(index: Int) {
-        if (self.items.count == 0) { return }
-        self.items = timers.timers.map({ ($0) })
+
         let timer = items[index]
+        print(timer.timeLeft)
         _ = CountdownDisplay(model: timer)
     }
 }

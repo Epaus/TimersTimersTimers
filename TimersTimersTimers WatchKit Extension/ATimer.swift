@@ -237,6 +237,7 @@ class ATimer: Identifiable, ObservableObject {
         if !self.timerPaused {
             self.reset()
         }
+        self.timerRunning = true
         self.lastDateUsed = Date()
         self.setFinalTime()
         sendNotification()
@@ -247,12 +248,16 @@ class ATimer: Identifiable, ObservableObject {
         }
         self.timerDone = false
         self.timerPaused = false
-        self.timerRunning = true
         self.startState = false
         self.borderColor = .goColor
         self.countdownDisplayTextLeft = self.cancelText
         self.countdownDisplayTextRight = self.pauseText
         
+    }
+    
+    func cancelRun() {
+        stop()
+        cancelNotification()
     }
     
     func stop() {
@@ -343,10 +348,8 @@ class ATimer: Identifiable, ObservableObject {
         content.title = NSString.localizedUserNotificationString(forKey: "Timer Done", arguments: nil)
         content.sound = UNNotificationSound.default
         
-        
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(self.timerValueAsOffsetSeconds), repeats: false)
         
-        // Create the request object.
         let request = UNNotificationRequest(identifier: timerIdentifer, content: content, trigger: trigger)
         
         let center = UNUserNotificationCenter.current()
