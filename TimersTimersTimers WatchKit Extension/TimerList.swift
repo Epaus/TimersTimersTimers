@@ -19,28 +19,28 @@ struct TimerList: View {
             List
                 {
                     HStack {
-                                   Spacer()
+                        Spacer()
                         NavigationLink(destination: CreateTimer().environmentObject(self.timers), label: {Text("Add Timer")})
-                                   Spacer()
-                               }
+                        Spacer()
+                    }
                     ForEach(items) { timer in
-                    
-
-                        CountdownDisplay(model: timer)
                         
-                        .onTapGesture(perform: {
-                            timer.start(withCompletionHandler: {
-                                self.reload()
+                        
+                        CountdownDisplay(model: timer)
+                            
+                            .onTapGesture(perform: {
+                                timer.start(withCompletionHandler: {
+                                    self.reload()
+                                })
                             })
-                        })
-                    
-                    
-                    
-                } .onDelete(perform: delete) }
+                        
+                        
+                        
+                    } .onDelete(perform: delete) }
                 .onReceive(timers.objectWillChange, perform: { _ in
                     self.reload()
                 })
-
+                
                 .onAppear(perform: {
                     self.reload()
                 })
@@ -58,39 +58,16 @@ struct TimerList: View {
     }
     
     private func reload() {
-        print("timers")
-        for item in timers.timers {
-            print("\(item.title) - \(item.timeLeft) running = \(item.timerRunning)")
-        }
-        print("****************")
         self.items = timers.timers.map({ ($0) })
         
-        print("original items")
-        for item in items {
-             print("\(item.title) - \(item.timeLeft) running = \(item.timerRunning)")
-        }
-        print("&&&&&&&&&&&&&&&&&")
-        
-       self.items.sort(by: { $0.timerRunning == true  && $0.timeLeft < $1.timeLeft })
-        print("sorted items")
-        for item in self.items {
-                    print("\(item.title) - \(item.timeLeft) running = \(item.timerRunning)")
-               }
-        print("^^^^^^^^^^^^^^^^^^^^^^")
-        for timer in items {
+        let byRunning = self.items.sorted(by: { $0.timerRunning == true  && !$1.timerRunning == true })
+        let byTimeLeft = byRunning.sorted(by: { $0.timerRunning == true && $0.timeLeft < $1.timeLeft })
+        self.items = byTimeLeft
+        for timer in self.items {
             if timer.timerRunning == true {
                 _ = CountdownDisplay(model: timer)
             }
         }
-        let timer = items[0]
-        _ = CountdownDisplay(model: timer)
-    }
-    
-    func goToIndex(index: Int) {
-
-        let timer = items[index]
-        print(timer.timeLeft)
-        _ = CountdownDisplay(model: timer)
     }
 }
 
