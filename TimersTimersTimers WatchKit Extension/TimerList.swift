@@ -58,17 +58,31 @@ struct TimerList: View {
     }
     
     private func reload() {
-        
+        print("timers")
+        for item in timers.timers {
+            print("\(item.title) - \(item.timeLeft) running = \(item.timerRunning)")
+        }
+        print("****************")
         self.items = timers.timers.map({ ($0) })
         
-       self.items.sort(by: { $0.timeLeft < $1.timeLeft && $0.timerRunning == true })
+        print("original items")
+        for item in items {
+             print("\(item.title) - \(item.timeLeft) running = \(item.timerRunning)")
+        }
+        print("&&&&&&&&&&&&&&&&&")
+        
+       self.items.sort(by: { $0.timerRunning == true  && $0.timeLeft < $1.timeLeft })
+        print("sorted items")
+        for item in self.items {
+                    print("\(item.title) - \(item.timeLeft) running = \(item.timerRunning)")
+               }
+        print("^^^^^^^^^^^^^^^^^^^^^^")
         for timer in items {
             if timer.timerRunning == true {
                 _ = CountdownDisplay(model: timer)
             }
         }
         let timer = items[0]
-        print(timer.timeLeft)
         _ = CountdownDisplay(model: timer)
     }
     

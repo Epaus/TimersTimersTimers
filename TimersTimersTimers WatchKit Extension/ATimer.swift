@@ -52,7 +52,7 @@ class ATimer: Identifiable, ObservableObject {
             }
         }
     }
-    @Published var timeLeft: Int
+    @Published var timeLeft: Int = 100000
                     
     let pauseText = "  Pause"
     let cancelText = "Cancel"

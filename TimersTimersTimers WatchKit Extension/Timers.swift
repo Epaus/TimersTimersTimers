@@ -24,6 +24,7 @@ class Timers: ObservableObject {
         temp.remove(at: index)
         self.timers = temp
         updateList()
+        self.objectWillChange.send()
     }
 
     
