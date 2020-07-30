@@ -13,7 +13,7 @@ import SwiftUI
 import Combine
 
 
-class ATimer: Identifiable, ObservableObject {
+class ATimer: NSObject, Identifiable, ObservableObject, UNUserNotificationCenterDelegate {
     
     @ObservedObject var alarmManager = AlarmManager.shared
     var id = UUID()
@@ -56,7 +56,7 @@ class ATimer: Identifiable, ObservableObject {
                     
     let pauseText = "  Pause"
     let cancelText = "Cancel"
-    let stopText = "Stop"
+    let stopText = "Clear"
     let resumeText = "  Start"
     let repeatText = "Repeat"
                      
@@ -161,9 +161,6 @@ class ATimer: Identifiable, ObservableObject {
         self.startState = true
         self.countdownDisplayTextLeft = self.cancelText
         self.countdownDisplayTextRight = self.pauseText
-        
-        self.start()
-        
     }
     
     func setFinalTime() {
@@ -333,7 +330,20 @@ class ATimer: Identifiable, ObservableObject {
         self.countdownDisplayColorLeft = .stopColor
     }
     
-    public func sendNotification() {
+   public func sendNotification() {
+        
+        let stopAlarmAction = UNNotificationAction(identifier: "STOP_ALARM_ACTION",
+        title: "Stop",
+        options: UNNotificationActionOptions(rawValue: 0))
+        
+        let timerDoneCategory = UNNotificationCategory(identifier: "TIMER_DONE_ALERT",
+                                                      actions: [stopAlarmAction],
+                                                      intentIdentifiers: [],
+                                                      options: [.customDismissAction])
+        
+        UNUserNotificationCenter.current().setNotificationCategories([timerDoneCategory])
+        UNUserNotificationCenter.current().delegate = self
+       
         let content = UNMutableNotificationContent()
         var notificationTitle : String
         if self.title == "" {
@@ -341,22 +351,22 @@ class ATimer: Identifiable, ObservableObject {
         } else {
             notificationTitle = self.title
         }
-        
+     
+        content.categoryIdentifier = "TIMER_DONE_ALERT"
         content.body = NSString.localizedUserNotificationString(forKey: notificationTitle,
                                                                 arguments: nil)
-        
         content.title = NSString.localizedUserNotificationString(forKey: "Timer Done", arguments: nil)
         content.sound = UNNotificationSound.default
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(self.timerValueAsOffsetSeconds), repeats: false)
         
         let request = UNNotificationRequest(identifier: timerIdentifer, content: content, trigger: trigger)
-        
+        print("sendNotificaiton:: timerIdentifier = \(self.timerIdentifer)")
         let center = UNUserNotificationCenter.current()
         center.add(request) { (error : Error?) in
             if error != nil {
                 os_log("error adding notification request: ")
-            } 
+            }
         }
         
     }
@@ -375,6 +385,30 @@ class ATimer: Identifiable, ObservableObject {
             print("in willPresentNotification")
         }
     }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+       didReceive response: UNNotificationResponse,
+       withCompletionHandler completionHandler:
+         @escaping () -> Void) {
+          
+           switch response.actionIdentifier {
+             case "STOP_ALARM_ACTION":
+              
+                alarmManager.stopHaptic()
+                stop()
+                break
+                  
+             // Handle other actions…
+             default:
+                break
+             }
+           
+           
+            // Always call the completion handler when done.
+            // Called when user taps on notification?
+              completionHandler()
+    }
+           
 }
 
 

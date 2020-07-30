@@ -30,7 +30,7 @@ struct TimerList: View {
                             
                             .onTapGesture(perform: {
                                 timer.start(withCompletionHandler: {
-                                    self.reload()
+                                
                                 })
                             })
                         
@@ -45,6 +45,7 @@ struct TimerList: View {
                     self.reload()
                 })
                 .listStyle(CarouselListStyle())
+            
         }
         
     }
@@ -68,6 +69,9 @@ struct TimerList: View {
                 _ = CountdownDisplay(model: timer)
             }
         }
+//        let timer = items[0]
+//        print(timer.timeLeft)
+//        _ = CountdownDisplay(model: timer)
     }
 }
 
