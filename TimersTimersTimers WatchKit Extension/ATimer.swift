@@ -185,7 +185,6 @@ class ATimer: NSObject, Identifiable, ObservableObject, UNUserNotificationCenter
         
         self.timeLeft = Int(diff)
         if (diff < 0.5) {
-            print("diff = ",diff)
             self.hours = 0
             self.minutes = 0
             self.seconds = 0
@@ -366,7 +365,7 @@ class ATimer: NSObject, Identifiable, ObservableObject, UNUserNotificationCenter
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(self.timerValueAsOffsetSeconds), repeats: false)
         
         let request = UNNotificationRequest(identifier: timerIdentifer, content: content, trigger: trigger)
-        print("sendNotificaiton:: timerIdentifier = \(self.timerIdentifer)")
+        
         let center = UNUserNotificationCenter.current()
         center.add(request) { (error : Error?) in
             if error != nil {
