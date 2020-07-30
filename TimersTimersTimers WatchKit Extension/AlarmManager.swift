@@ -37,6 +37,7 @@ func beginHapticAlert() {
       }
     hapticRunning = false
   }
+// this is a test comment.
   
   @objc func playHaptic() {
     WKInterfaceDevice.current().play(.notification)
