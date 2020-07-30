@@ -48,12 +48,10 @@ struct TimerPersistence {
         return timerStructArray
         }
         guard let myDict = dict else {
-            print("dict doesn't exist")
             return timerStructArray
         }
 
         guard let list = myDict["list"] else {
-            print("dict exists, but no list")
             return timerStructArray
         }
         timerStructArray = list

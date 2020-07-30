@@ -24,7 +24,6 @@ class AlarmManager: ObservableObject {
     }
 
 func beginHapticAlert() {
-    print("beginHapticAlert")
     hapticRunning = true
     objectWillChange.send()
       DispatchQueue.main.async {
@@ -33,7 +32,6 @@ func beginHapticAlert() {
   }
   
   func stopHaptic() {
-    print("stopHaptic")
       if let timer =  hapticTimer  {
           timer.invalidate()
       }
@@ -41,7 +39,6 @@ func beginHapticAlert() {
   }
   
   @objc func playHaptic() {
-    print("playHaptic")
     WKInterfaceDevice.current().play(.notification)
   }
 }
