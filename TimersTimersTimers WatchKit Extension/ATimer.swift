@@ -335,9 +335,14 @@ class ATimer: NSObject, Identifiable, ObservableObject, UNUserNotificationCenter
         let stopAlarmAction = UNNotificationAction(identifier: "STOP_ALARM_ACTION",
         title: "Stop",
         options: UNNotificationActionOptions(rawValue: 0))
+    
+        let repeatTimerAction = UNNotificationAction(identifier: "REPEAT_TIMER_ACTION",
+                                                     title: "Repeat",
+                                                     options: UNNotificationActionOptions(rawValue: 0))
+    
         
         let timerDoneCategory = UNNotificationCategory(identifier: "TIMER_DONE_ALERT",
-                                                      actions: [stopAlarmAction],
+                                                      actions: [repeatTimerAction,stopAlarmAction],
                                                       intentIdentifiers: [],
                                                       options: [.customDismissAction])
         
@@ -391,21 +396,21 @@ class ATimer: NSObject, Identifiable, ObservableObject, UNUserNotificationCenter
        withCompletionHandler completionHandler:
          @escaping () -> Void) {
           
-           switch response.actionIdentifier {
-             case "STOP_ALARM_ACTION":
-              
-                alarmManager.stopHaptic()
-                stop()
-                break
-                  
-             // Handle other actions…
-             default:
-                break
-             }
+        switch response.actionIdentifier {
+        case "STOP_ALARM_ACTION":
+            alarmManager.stopHaptic()
+            stop()
+            break
+            
+        case "REPEAT_TIMER_ACTION":
+            alarmManager.stopHaptic()
+            start()
+            
+        // Handle other actions…
+        default:
+            break
+        }
            
-           
-            // Always call the completion handler when done.
-            // Called when user taps on notification?
               completionHandler()
     }
            
