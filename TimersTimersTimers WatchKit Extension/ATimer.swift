@@ -386,7 +386,7 @@ class ATimer: NSObject, Identifiable, ObservableObject, UNUserNotificationCenter
         
         if notification.request.identifier == self.timerIdentifer {
             completionHandler( [.alert,.sound,.badge])
-            print("in willPresentNotification")
+            os_log("in willPresentNotification")
         }
     }
     
