@@ -398,7 +398,7 @@ class ATimer: NSObject, Identifiable, ObservableObject, UNUserNotificationCenter
         switch response.actionIdentifier {
         case "STOP_ALARM_ACTION":
             alarmManager.stopHaptic()
-            stop()
+            endTimer()
             break
             
         case "REPEAT_TIMER_ACTION":
