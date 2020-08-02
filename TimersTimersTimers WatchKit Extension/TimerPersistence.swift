@@ -66,7 +66,7 @@ struct TimerPersistence {
     func modelToStruct(timerArray: [ATimer]) -> [TimerStruct] {
         var structArray = [TimerStruct]()
         for timer in timerArray {
-            let newStruct = TimerStruct(title: timer.title, offsetSeconds: timer.offsetSeconds)
+            let newStruct = TimerStruct(title: timer.title, offsetSeconds: timer.timerValueAsOffsetSeconds)
             structArray.append(newStruct)
         }
         return structArray

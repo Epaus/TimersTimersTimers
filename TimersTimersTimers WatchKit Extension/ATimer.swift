@@ -19,7 +19,7 @@ class ATimer: NSObject, Identifiable, ObservableObject, UNUserNotificationCenter
     var id = UUID()
     let didChange = PassthroughSubject<Void, Never>()
     var offsetSeconds : Int
-    var timerValueAsOffsetSeconds: Int
+    let timerValueAsOffsetSeconds: Int
     var finalTime : Date!
     var title : String
     var timerIdentifer: String
@@ -322,7 +322,7 @@ class ATimer: NSObject, Identifiable, ObservableObject, UNUserNotificationCenter
         self.timerPaused = false
         self.startState = true
         self.offsetSeconds = self.timerValueAsOffsetSeconds
-        self.setTimeComponents(offset: Double(self.offsetSeconds))
+        self.setTimeComponents(offset: Double(self.timerValueAsOffsetSeconds))
         self.countdownDisplayTextRight = self.pauseText
         self.countdownDisplayColorRight = .pauseColor
         self.countdownDisplayTextLeft = self.cancelText

@@ -33,6 +33,7 @@ struct TimerList: View {
                                 
                                 })
                             })
+                         .listRowInsets(EdgeInsets(top: 0, leading: 2, bottom: 0, trailing: 2))
                         
                         
                         
@@ -45,6 +46,7 @@ struct TimerList: View {
                     self.reload()
                 })
                 .listStyle(CarouselListStyle())
+            .padding()
             
         }
         
@@ -53,7 +55,6 @@ struct TimerList: View {
     private func delete(at offsets: IndexSet) {
         
         guard let index = Array(offsets).first else { return }
-        timers.timers.sort(by: { $0.lastDateUsed > $1.lastDateUsed })
         timers.removeModel(index: index)
         self.reload()
     }
