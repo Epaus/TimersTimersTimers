@@ -33,19 +33,19 @@ struct CreateTimer: View {
            
             HStack(alignment: .center) {
                        Picker(selection: $selectedHour, label:Text("Hrs")) {
-                           ForEach(0 ..< hourIncrements.count) {
+                           ForEach(0 ..< 23) {
                             Text(String(format: "%02d", self.hourIncrements[$0]))
                            }
                 }
                        Text(":")
                        Picker(selection: $selectedMinute, label:Text("Min")) {
-                           ForEach(0 ..< secMinIncrements.count) {
+                           ForEach(0 ..< 59) {
                             Text(String(format: "%02d", self.secMinIncrements[$0]))
                            }
                        }
                        Text(":")
                        Picker(selection: $selectedSecond, label:Text("Sec")) {
-                           ForEach(0 ..< secMinIncrements.count) {
+                           ForEach(0 ..< 59) {
                                Text(String(format: "%02d", self.secMinIncrements[$0]))
                            }
                        }

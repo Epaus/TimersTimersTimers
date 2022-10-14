@@ -12,7 +12,7 @@ struct HStack44View: View {
      @ObservedObject var model : ATimer
     var body: some View {
         HStack {
-            Spacer()
+            //Spacer()
             Spacer()
             Button(action: {}) {
                 Text(self.model.countdownDisplayTextLeft)
